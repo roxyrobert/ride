@@ -1,6 +1,8 @@
 import unittest
 import json
 from api.views import app
+from api.views import os
+from api.models import Users
 
 class RideTestCase(unittest.TestCase):
     def setUp(self):
@@ -85,5 +87,6 @@ class RideTestCase(unittest.TestCase):
         self.assertIn('request_id', res_data)
         self.assertIn('ride_id', res_data)
 
+        
 
 
