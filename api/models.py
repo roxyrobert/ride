@@ -85,3 +85,49 @@ class RideRequests:
 
         ride_requests.append(request_ride)
         return request_ride
+
+users = []
+
+class Users():
+    def __init__(self, username, email, pwd_hash, contact, role):
+        self.request_id = 0
+        self.username = username
+        self.email = email
+        self.pwd_hash = pwd_hash
+        self.contact = contact
+        self.role = role
+        self.users = []
+    
+    def get_user_id(self):
+        return self.user_id
+
+    def get_username(self):
+        return self.username
+
+    def get_email(self):
+        return self.email
+
+    def get_pwd_hash(self):
+        return self.pwd_hash
+
+    def get_contact(self):
+        return self.contact
+
+    def get_role(self):
+        return self.role
+
+    def add_user(self):
+        '''add a new user to users list'''
+        user_id = len(users)
+        self.user_id = _id + 1
+
+        new_user = {
+            'user_id':self.user_id,
+            'username':self.username,
+            'email': self.email,
+            'pwd_hash':self.pwd_hash,
+            'contact':self.contact,
+            'role':self.role
+        }
+        users.append(new_user)
+        return new_user
