@@ -2,6 +2,32 @@ from flask import Flask, jsonify, request
 from .models import Rides, RideRequests, total_rides
 from api import app
 
+@app.route('/api/v1/signup' ,methods= ['POST'])
+def add_new_user():
+   
+    user_data = request.get_json()
+    
+    if isinstance(user_data['username'], str) and  isinstance(user_data['email'], str) and isinstance(user_data['pwd_hash'], str) and isinstance(user_data['contact'], str) and isinstance(user_data['role'], str):
+        
+        new_user = Users(user_data['username'],user_data['email'],user_data['pwd_hash'], user_data['contact'], user_data['role'])
+        new_user.add_user()
+        if new_user:            
+            return jsonify({
+                'status':'OK',
+                'message': 'User successfully created',
+                'user_id':new_user.get_user_id()
+            }), 201
+        else:
+            return jsonify({ 
+                'status':'FAIL',
+                'message': 'Failed to create User'
+            }), 400            
+                   
+    return jsonify({
+        'status': 'FAIL',
+        'message': 'Failed to create User. Invalid User data',
+    }), 400
+
 
 @app.route('/api/v1/rides' ,methods= ['POST'])
 def create_ride():
