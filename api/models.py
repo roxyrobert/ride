@@ -90,7 +90,7 @@ users = []
 
 class Users():
     def __init__(self, username, email, pwd_hash, contact, role):
-        self.request_id = 0
+        self.user_id = 0
         self.username = username
         self.email = email
         self.pwd_hash = pwd_hash
@@ -119,8 +119,8 @@ class Users():
     def add_user(self):
         '''add a new user to users list'''
         user_id = len(users)
-        self.user_id = _id + 1
-
+        self.user_id = user_id + 1
+        
         new_user = {
             'user_id':self.user_id,
             'username':self.username,
@@ -131,3 +131,22 @@ class Users():
         }
         users.append(new_user)
         return new_user
+
+    def encode_auth_token(self, user_id):
+        # """
+        # Generates the Auth Token
+        # :return: string
+        # """
+        try:
+            payload = {
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=5),
+                'iat': datetime.datetime.utcnow(),
+                'sub': user_id
+            }
+            return jwt.encode(
+                payload,
+                app.config.get('SECRET'),
+                algorithm='HS256'
+            )
+        except Exception as e:
+            return e
